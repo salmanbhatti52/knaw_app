@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1039543621874-38rqrundtkhp43nf5aqeg2d5o0ufqo75.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1039543621874-38rqrundtkhp43nf5aqeg2d5o0ufqo75</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1039543621874-gsp209ut8gfdnqt9ppo3cf8umg1rd0cv.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAHTJwcP1p8wp7PMtGfBwFhZ2OJVkZkpjE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1039543621874</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.knawnews.apps</string>
+	<key>PROJECT_ID</key>
+	<string>knawnews-6aad8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>knawnews-6aad8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1039543621874:ios:f212a0847498df5b98186b</string>
+</dict>
+</plist>
