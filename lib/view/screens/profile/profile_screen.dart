@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
     super.initState();
       _tabController = TabController(length: 3, initialIndex: widget.index, vsync: this);
 
-    print(AppData().userdetail!.toJson());
+    // print(AppData().userdetail!.toJson());
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getProfileDetail();
     });

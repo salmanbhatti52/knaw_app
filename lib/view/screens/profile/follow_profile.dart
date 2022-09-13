@@ -50,6 +50,60 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
       getProfileDetail();
     });
   }
+  void showCustomDialog(context) {
+    double w =MediaQuery.of(context).size.width;
+    showDialog(
+      context: context,
+      builder: (ctx) =>
+          Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Container(
+              margin: EdgeInsets.zero,
+              height: 200,
+              child: Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 12),
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Block ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                        Text("${userDetail.userName.toString()} ?",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold))
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text('They will not be able to send u messages,see your posts,or find your profile. They will not be notify thet you blocked them.',style: TextStyle(fontSize: 14  ),
+                      textAlign: TextAlign.center,),
+                    SizedBox(height: 10),
+                    Divider(color: Colors.grey.shade400,indent: 0,endIndent: 0,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton(
+                            onPressed: (){Navigator.pop(context);},
+                            child: Text('Cancle',style: TextStyle(color: Colors.black,fontSize: 16),),
+                        ),
+                        Container(height: 40,width: 0.5,color: Colors.grey.shade400,),
+                        TextButton(
+                            onPressed: (){
+                              blockUser();
+                              reloadProfileDetail();
+                            },
+                            child: Text('Block',style: TextStyle(color: Colors.red,fontSize: 16),),
+                        ),
+                      ],
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +146,9 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
               PopupMenuItem(
                 value: 1,
                 child: GestureDetector(
-                  onTap: userDetail.isMuted?unMuteMember:muteMember,
+                  onTap: (){
+                    userDetail.isMuted?SizedBox():muteMember();
+                  },
                   child: Container(
                     height: 40,
                     child: Row(
@@ -101,7 +157,7 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
                         SizedBox(
                           width: 10,
                         ),
-                      Text(userDetail.isMuted?AppData().language!.unmute:AppData().language!.mute,style: openSansSemiBold.copyWith(color: Colors.black,fontSize: Dimensions.fontSizeSmall+2),textAlign: TextAlign.center,),
+                      Text(userDetail.isMuted?'Muted':AppData().language!.mute,style: openSansSemiBold.copyWith(color: Colors.black,fontSize: Dimensions.fontSizeSmall+2),textAlign: TextAlign.center,),
                       ],
                     ),
                   ),
@@ -111,7 +167,7 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
                 value: 2,
                 child: GestureDetector(
                   onTap: (){
-                    blockUser();
+                  userDetail.isBlocked?SizedBox():showCustomDialog(context);
                   },
                   child: Container(
                     height: 40,
@@ -121,7 +177,7 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
                         SizedBox(
                           width: 10,
                         ),
-                        Text("Block",style: openSansSemiBold.copyWith(color: Colors.black,fontSize: Dimensions.fontSizeSmall+2),textAlign: TextAlign.center,)
+                        Text(userDetail.isBlocked?"Blocked":'Block',style: openSansSemiBold.copyWith(color: Colors.black,fontSize: Dimensions.fontSizeSmall+2),textAlign: TextAlign.center,)
                       ],
                     ),
                   ),
@@ -131,8 +187,9 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
                 value: 2,
                 child: GestureDetector(
                   onTap: (){
-                    Get.dialog(ReportUserDialog(onUserReport: (val){reportUser(val);},));
-                  },
+                    userDetail.isReported?SizedBox():Get.dialog(ReportUserDialog(onUserReport: (val){reportUser(val);},));
+                  reloadProfileDetail();
+                    },
                   child: Container(
                     height: 40,
                     child: Row(
@@ -141,7 +198,7 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
                         SizedBox(
                           width: 10,
                         ),
-                        Text("Report",style: openSansSemiBold.copyWith(color: Colors.black,fontSize: Dimensions.fontSizeSmall+2),textAlign: TextAlign.center,)
+                        Text(userDetail.isReported?"Reported":"Report",style: openSansSemiBold.copyWith(color: Colors.black,fontSize: Dimensions.fontSizeSmall+2),textAlign: TextAlign.center,)
                       ],
                     ),
                   ),
@@ -425,6 +482,34 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
         //showCustomSnackBar(response['status']);
       }
     }
+  Future<void> reloadProfileDetail() async {
+      var response;
+      response = await DioService.post('get_other_profile_details', {
+        "usersId" : AppData().userdetail!.usersId,
+        "otherUserId" : widget.userId
+      });
+      if(response['status']=='success'){
+        var jsonData= response['data'];
+        userDetail  =  UserDetail.fromJson(jsonData);
+        print(userDetail.toJson());
+        if(widget.userId==AppData().userdetail!.usersId){
+          Get.to(() => ProfileScreen());
+          return;
+        }
+        setState(() {});
+        // showCustomSnackBar(response['status'],isError: false);
+      }
+      else{
+        if(widget.userId==AppData().userdetail!.usersId){
+          Get.to(() => ProfileScreen());
+          return;
+        }
+        setState(() {
+
+        });
+        //showCustomSnackBar(response['status']);
+      }
+    }
   Future<void> followUser() async {
     openLoadingDialog(context, "Loading");
     var response;
@@ -532,11 +617,14 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
     if(response['status']=='success'){
        showCustomSnackBar("Blocked successfully");
       Navigator.pop(context);
+      Navigator.pop(context);
     }
     else{
       Navigator.pop(context);
       print(response['message']);
       showCustomSnackBar(response['message']);
+      Navigator.pop(context);
+
     }
   }
   void unblockUser() async {
