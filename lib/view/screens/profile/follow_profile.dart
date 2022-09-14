@@ -61,7 +61,7 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
             ),
             child: Container(
               margin: EdgeInsets.zero,
-              height: 200,
+              height: 255,
               child: Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 12),
                 child: Column(
@@ -75,18 +75,21 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
                       ],
                     ),
                     SizedBox(height: 8),
-                    Text('They will not be able to send u messages,see your posts,or find your profile. They will not be notify thet you blocked them.',style: TextStyle(fontSize: 14  ),
+                    Text('They will not be able to send u messages,see your posts,or find your profile.'
+                    ' This doesn\'t include extended scenarios like multi-host livestreams,duets posted by others, or group chats you both participate in.'
+                        ' They will not be notify that you blocked them.',
+                      style: TextStyle(fontSize: 14  ),
                       textAlign: TextAlign.center,),
-                    SizedBox(height: 10),
-                    Divider(color: Colors.grey.shade400,indent: 0,endIndent: 0,),
+                    SizedBox(height: 15),
+                    Container(height: 0.5,color: Colors.grey.shade400,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
                             onPressed: (){Navigator.pop(context);},
-                            child: Text('Cancle',style: TextStyle(color: Colors.black,fontSize: 16),),
+                            child: Text('Cancel',style: TextStyle(color: Colors.black,fontSize: 16),),
                         ),
-                        Container(height: 40,width: 0.5,color: Colors.grey.shade400,),
+                        Container(height: 60,width: 0.5,color: Colors.grey.shade400,),
                         TextButton(
                             onPressed: (){
                               blockUser();

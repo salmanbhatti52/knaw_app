@@ -258,8 +258,7 @@ class _SignInScreenState extends State<SignInScreen> {
       }
       else{
         Navigator.pop(context);
-        print(response['message']);
-        //showCustomSnackBar(response['message']);
+        showCustomSnackBar(response['message']);
 
       }
 

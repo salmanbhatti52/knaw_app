@@ -75,7 +75,7 @@ class _FollowerState extends State<Follower> {
                         icon: followDetail![index].followProfilePicture??'',
                         title: followDetail![index].followUserName??'',
                         isFollower: followDetail![index].isFollowingBack=="false"?false:true,
-                        isVerified: followDetail![index].userVerified,
+                         isVerified: followDetail![index].userVerified,
                         onTapFollow: (){followerIndex=index;followUser();},
                         onTap: () => Get.to(() => FollowProfile(userId: followDetail![index].followedByUserId,)),
                       ),
