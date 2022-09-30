@@ -8,6 +8,7 @@ import 'package:knaw_news/util/styles.dart';
 import 'package:knaw_news/view/base/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:knaw_news/view/base/profile-image-picker.dart';
 import 'package:knaw_news/view/screens/about/about.dart';
 import 'package:knaw_news/view/screens/auth/sign_in_screen.dart';
 import 'package:knaw_news/view/screens/auth/social_login.dart';
@@ -60,17 +61,25 @@ class _MyDrawerState extends State<MyDrawer> {
                   SizedBox(height: 40),
                   Stack(
                     children: [
-                      ClipOval(
-                        child: AppData().userdetail!.profilePicture == null || AppData().userdetail!.profilePicture == "" ?CustomImage(
-                          image: Images.placeholder,
-                          height: 90,
-                          width: 90,
-                          fit: BoxFit.cover,
-                        ):Image.network(
-                          AppData().userdetail!.profilePicture??'',
-                          width: 90,height: 90,fit: BoxFit.cover,
+                      SizedBox(
+                        width: 90,
+                        height: 90,
+                        child: ProfileImagePicker(
+                          onImagePicked: (value){},
+                          previousImage: AppData().userdetail!.profilePicture?? "",
                         ),
                       ),
+                      // ClipOval(
+                      //   child: AppData().userdetail!.profilePicture == null || AppData().userdetail!.profilePicture == "" ?CustomImage(
+                      //     image: Images.placeholder,
+                      //     height: 90,
+                      //     width: 90,
+                      //     fit: BoxFit.cover,
+                      //   ):Image.network(
+                      //     AppData().userdetail!.profilePicture??'',
+                      //     width: 90,height: 90,fit: BoxFit.cover,
+                      //   ),
+                      // ),
                       AppData().userdetail!.userVerified?Positioned(
                         bottom: 4, right: 4,
                         child: SvgPicture.asset(Images.badge),

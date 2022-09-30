@@ -25,26 +25,32 @@ class FollowCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Stack(
+            Row(
               children: [
-                ClipOval(
-                  child: icon == "" ?CustomImage(
-                    image: Images.placeholder,
-                    height: 45,
-                    width: 45,
-                    fit: BoxFit.cover,
-                  ):Image.network(
-                    icon,
-                    width: 45,height: 45,fit: BoxFit.cover,
-                  ),
+                Stack(
+                  children: [
+                    ClipOval(
+                      child: icon == "" ?CustomImage(
+                        image: Images.placeholder,
+                        height: 45,
+                        width: 45,
+                        fit: BoxFit.cover,
+                      ):Image.network(
+                        icon,
+                        width: 45,height: 45,fit: BoxFit.cover,
+                      ),
+                    ),
+                    isVerified!?Positioned(
+                      bottom: 0, right: 0,
+                      child: SvgPicture.asset(Images.badge,height: 15,width: 15,),
+                    ):SizedBox(),
+                  ],
                 ),
-                isVerified!?Positioned(
-                  bottom: 0, right: 0,
-                  child: SvgPicture.asset(Images.badge,height: 15,width: 15,),
-                ):SizedBox(),
+                SizedBox(width: MediaQuery.of(context).size.width*0.05,),
+                Text(title,style: openSansBold.copyWith(color: Colors.black,),),
               ],
             ),
-            Text(title,style: openSansBold.copyWith(color: Colors.black,),),
+
             GestureDetector(
               onTap: onTapFollow,
               child: Container(

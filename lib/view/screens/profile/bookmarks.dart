@@ -44,11 +44,9 @@ class _BookmarksState extends State<Bookmarks> {
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              //padding: EdgeInsetsGeometry.infinity,
               itemCount: bookmarkDetail!.length,
               itemBuilder: (context,index){
                 return BookmarkPost(postDetail: bookmarkDetail![index].bookmarkedPostDetails,);
-                return NoDataScreen();
               }
           ),
         ):Center(child: isLoading?Center(child: CircularProgressIndicator(color: Colors.amber,),):NoDataScreen()),

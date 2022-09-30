@@ -61,7 +61,8 @@ class _MessagePageState extends State<MessagePage> {
       });
       var chats= response['data'] as List;
       chatsDetail =    chats.map<GetAllChats>((e) =>  GetAllChats.fromJson(e)).toList();
-      print(chatsDetail.toList());
+      // print(chatsDetail.toList());
+
       Navigator.of(context).pop();
       setState(() {});
     }

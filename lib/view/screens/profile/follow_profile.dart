@@ -61,7 +61,7 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
             ),
             child: Container(
               margin: EdgeInsets.zero,
-              height: 255,
+              height: 190,
               child: Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 12),
                 child: Column(
@@ -75,8 +75,7 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
                       ],
                     ),
                     SizedBox(height: 8),
-                    Text('They will not be able to send u messages,see your posts,or find your profile.'
-                    ' This doesn\'t include extended scenarios like multi-host livestreams,duets posted by others, or group chats you both participate in.'
+                    Text('They will not be able to send your messages,see your posts,or find your profile.'
                         ' They will not be notify that you blocked them.',
                       style: TextStyle(fontSize: 14  ),
                       textAlign: TextAlign.center,),
@@ -89,7 +88,7 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
                             onPressed: (){Navigator.pop(context);},
                             child: Text('Cancel',style: TextStyle(color: Colors.black,fontSize: 16),),
                         ),
-                        Container(height: 60,width: 0.5,color: Colors.grey.shade400,),
+                        Container(height: 50,width: 0.5,color: Colors.grey.shade400,),
                         TextButton(
                             onPressed: (){
                               blockUser();
@@ -514,7 +513,6 @@ class _FollowProfileState extends State<FollowProfile> with TickerProviderStateM
       }
     }
   Future<void> followUser() async {
-    openLoadingDialog(context, "Loading");
     var response;
     response = await DioService.post('follow_user', {
       "followingToUser" : userDetail.usersId,

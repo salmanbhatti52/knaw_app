@@ -83,14 +83,14 @@ class _PostPageState extends State<PostPage> {
                 /// Upper emoji list
 
                 Container(
-                  height: 75,
+                  height: 65,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount:widget.postDetail!.uppercategories!.length,
                     itemBuilder: (context, index1) {
                       return  GestureDetector(
                         onTap: (){
-                          // addEmojiToPost(widget.postDetail!.newsPostId,widget.postDetail!.uppercategories![index1].id);
+                           addEmojiToPost(widget.postDetail!.newsPostId,widget.postDetail!.uppercategories![index1].id);
                         },
                         child: Stack(
                           children: [
@@ -99,31 +99,32 @@ class _PostPageState extends State<PostPage> {
                                 SizedBox(height: 12,),
                                 Container(
                                   child: Padding(
-                                    padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.02),
-                                    child: SvgPicture.asset('assets/emojis/${widget.postDetail!.uppercategories![index1].path}',height: 29),
+                                    padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.031),
+                                    child: SvgPicture.asset('assets/emojis/${widget.postDetail!.uppercategories![index1].path}',height: 20),
                                   ),
                                 ),
                                 SizedBox(height: 5,),
-                                Text(widget.postDetail!.uppercategories![index1].count.toString(),style: TextStyle(color: Colors.black,fontSize: 14),),
+                                Text(widget.postDetail!.uppercategories![index1].count.toString(),style: TextStyle(color: Colors.black,fontSize: 12),),
                               ],
                             ),
                             Positioned(
-                              top: 3,
-                              left:0,
+                              top: 9,
+                              left:10,
                               child: LikeButton(
                                 onTap: (value) async {
                                  await addEmojiToPost(widget.postDetail!.newsPostId,widget.postDetail!.uppercategories![index1].id);
 
                                   return !value;
                                 },
-                                animationDuration: Duration(seconds: 3),
-                                size: 45,
+                                animationDuration: Duration(seconds: 5),
+                                size: 25,
                                 likeBuilder: (isTapped){
                                   return Icon(Icons.circle,
                                     color: isTapped? Colors.transparent:Colors.transparent,
                                   );
                                 },
-
+                                circleSize: 0.0,
+                                circleColor: CircleColor(start: Colors.transparent, end: Colors.transparent),
                               ),
                             ),
                           ],
@@ -162,31 +163,32 @@ class _PostPageState extends State<PostPage> {
                                 SizedBox(height: 12,),
                                 Container(
                                   child: Padding(
-                                    padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
-                                    child: SvgPicture.asset('assets/emojis/${widget.postDetail!.lowercategories![index1].path}',height: 29),
+                                    padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.04),
+                                    child: SvgPicture.asset('assets/emojis/${widget.postDetail!.lowercategories![index1].path}',height: 20),
                                   ),
                                 ),
                                 SizedBox(height: 5,),
-                                Text(widget.postDetail!.lowercategories![index1].count.toString(),style: TextStyle(color: Colors.black,fontSize: 14),)
+                                Text(widget.postDetail!.lowercategories![index1].count.toString(),style: TextStyle(color: Colors.black,fontSize: 12),)
                               ],
                             ),
                             Positioned(
-                              top: 3,
-                              left:2,
+                              top: 8,
+                              left:11,
                               child: LikeButton(
                                 onTap: (value) async {
                                  await addEmojiToPost(widget.postDetail!.newsPostId,widget.postDetail!.lowercategories![index1].id);
 
                                   return !value;
                                 },
-                                animationDuration: Duration(seconds: 3),
-                                size: 45,
+                                animationDuration: Duration(seconds: 5),
+                                size: 25,
                                 likeBuilder: (isTapped){
                                   return Icon(Icons.circle,
                                     color: isTapped? Colors.transparent:Colors.transparent,
                                   );
                                 },
-
+                                circleSize: 0.0,
+                                circleColor: CircleColor(start: Colors.transparent, end: Colors.transparent),
                               ),
                             ),
                           ],
@@ -283,111 +285,7 @@ class _PostPageState extends State<PostPage> {
 
     }
   }
-  Future<void> happyReact() async {
-    openLoadingDialog(context, "Loading");
-    var response;
-    response = await DioService.post('react_happy', {
-      "newsPostId" : widget.postDetail!.newsPostId,
-      "usersId" : AppData().userdetail!.usersId
-    });
-    if(response['status']=='success'){
-      //print(postDetail![0].toJson());
-      widget.postDetail!.isHappyReacted!?widget.postDetail!.happyReactions=(widget.postDetail!.happyReactions!-1):widget.postDetail!.happyReactions=(widget.postDetail!.happyReactions!+1);
-      widget.postDetail!.isHappyReacted!?widget.postDetail!.isHappyReacted=false:widget.postDetail!.isHappyReacted=true;
-      Navigator.pop(context);
-      setState(() {
 
-      });
-      //showCustomSnackBar(response['data'],isError: false);
-    }
-    else{
-      Navigator.pop(context);
-      setState(() {
-
-      });
-      //showCustomSnackBar(response['message']);
-
-    }
-  }
-
-  Future<void> sadReact() async {
-    openLoadingDialog(context, "Loading");
-    var response;
-    response = await DioService.post('react_sad', {
-      "newsPostId" : widget.postDetail!.newsPostId,
-      "usersId" : AppData().userdetail!.usersId
-    });
-    if(response['status']=='success'){
-      //print(postDetail![0].toJson());
-      widget.postDetail!.isSadReacted!?widget.postDetail!.sadReactions=(widget.postDetail!.sadReactions!-1):widget.postDetail!.sadReactions=(widget.postDetail!.sadReactions!+1);
-      widget.postDetail!.isSadReacted!?widget.postDetail!.isSadReacted=false:widget.postDetail!.isSadReacted=true;
-      Navigator.pop(context);
-      setState(() {
-
-      });
-      //showCustomSnackBar(response['data'],isError: false);
-    }
-    else{
-      Navigator.pop(context);
-      setState(() {
-
-      });
-      //showCustomSnackBar(response['message']);
-
-    }
-  }
-  Future<void> likeOpinion() async {
-    openLoadingDialog(context, "Loading");
-    var response;
-    response = await DioService.post('like_opinion', {
-      "newsPostId" : widget.postDetail!.newsPostId,
-      "usersId" : AppData().userdetail!.usersId
-    });
-    if(response['status']=='success'){
-      //print(postDetail![0].toJson());
-      widget.postDetail!.isHappyReacted!?widget.postDetail!.happyReactions=(widget.postDetail!.happyReactions!-1):widget.postDetail!.happyReactions=(widget.postDetail!.happyReactions!+1);
-      widget.postDetail!.isHappyReacted!?widget.postDetail!.isHappyReacted=false:widget.postDetail!.isHappyReacted=true;
-      Navigator.pop(context);
-      setState(() {
-
-      });
-      //showCustomSnackBar(response['data'],isError: false);
-    }
-    else{
-      Navigator.pop(context);
-      setState(() {
-
-      });
-      //showCustomSnackBar(response['message']);
-
-    }
-  }
-  Future<void> dislikeOpinion() async {
-    openLoadingDialog(context, "Loading");
-    var response;
-    response = await DioService.post('dislike_opinion', {
-      "newsPostId" : widget.postDetail!.newsPostId,
-      "usersId" : AppData().userdetail!.usersId
-    });
-    if(response['status']=='success'){
-      //print(postDetail![0].toJson());
-      widget.postDetail!.isSadReacted!?widget.postDetail!.sadReactions=(widget.postDetail!.sadReactions!-1):widget.postDetail!.sadReactions=(widget.postDetail!.sadReactions!+1);
-      widget.postDetail!.isSadReacted!?widget.postDetail!.isSadReacted=false:widget.postDetail!.isSadReacted=true;
-      Navigator.pop(context);
-      setState(() {
-
-      });
-      //showCustomSnackBar(response['data'],isError: false);
-    }
-    else{
-      Navigator.pop(context);
-      setState(() {
-
-      });
-      //showCustomSnackBar(response['message']);
-
-    }
-  }
   Future<void> viewPost() async {
     //openLoadingDialog(context, "Loading");
     var response;
@@ -414,7 +312,7 @@ class _PostPageState extends State<PostPage> {
   }
 
   Future<void> addEmojiToPost(postID,cateID) async {
-    openLoadingDialog(context, "Loading");
+    // openLoadingDialog(context, "Loading");
     var response;
     var data = {
       "usersId" : AppData().userdetail!.usersId,
@@ -422,24 +320,22 @@ class _PostPageState extends State<PostPage> {
       "categoryId":cateID,
     };
     response = await DioService.post('add_emoji_to_post', data);
-    print(response);
-    print('--------------------------------------------');
-    print(data);
     if(response['status']=='success'){
       setState(() {
 
       });
-      Navigator.pop(context);
+      // Navigator.pop(context);
 
     }
     else{
       setState(() {
 
       });
-      Navigator.pop(context);
+      // Navigator.pop(context);
 
     }
   }
+
   // Future<void> bookmarkPost(postId) async {
   //   openLoadingDialog(context, "Loading");
   //   var response;

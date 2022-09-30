@@ -48,3 +48,7 @@ class NotificationDetail{
   Map<String, dynamic> toJson() => _$NotificationDetailToJson(this);
   factory NotificationDetail.fromJson(json) => _$NotificationDetailFromJson(json);
 }
+
+
+
+

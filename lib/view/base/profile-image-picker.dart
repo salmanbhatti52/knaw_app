@@ -21,12 +21,12 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
       height: 62.0,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.green.shade200,width: 1)),
+          border: Border.all(color: Colors.amber,width: 1)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100),
         child: pickedImage == null ? (widget.previousImage!=null && widget.previousImage!.isNotEmpty)
             ? Image.network(widget.previousImage!,fit: BoxFit.cover, loadingBuilder: circularImageLoader,)
-            :  Image.asset("assets/avatar.png", fit: BoxFit.cover,
+            :  Image.asset("assets/image/placeholder.jpg", fit: BoxFit.cover,
         )
             : Image.file(File(pickedImage!.path),fit: BoxFit.cover,)
 
@@ -34,3 +34,17 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     );
   }
 }
+//
+// Widget circularImageLoader(BuildContext context, Widget widget, ImageChunkEvent? event){
+//   if (event != null) {
+//     return  Center(
+//       child: CircularProgressIndicator(
+//           valueColor: AlwaysStoppedAnimation(Colors.black),
+//           value: event.cumulativeBytesLoaded / event.expectedTotalBytes!
+//       ),
+//     );
+//   } else    return widget;
+//   return CircularProgressIndicator(
+//     valueColor: AlwaysStoppedAnimation(Colors.black),
+//   );
+// }

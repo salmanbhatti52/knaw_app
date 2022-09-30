@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:knaw_news/util/dimensions.dart';
-import 'package:knaw_news/util/images.dart';
-import 'package:knaw_news/util/styles.dart';
+
 
 class CategoryItem extends StatelessWidget {
   String icon;

@@ -38,8 +38,6 @@ class HomeScreen extends StatefulWidget  {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<Widget> tabs = [];
   List<Widget> tabsItems = [];
-
-
   List<GetEmojis>? emojies;
   ScrollController scrollController=ScrollController();
   TabController? _tabController;
@@ -52,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   String category="0";
   String offset="0";
   bool isLoading=true;
-  List<String> categoryList=["0","1","2","3","4","5","6","7","8","9","10", "11","12","13","14","15",];
   List<PostDetail>? postDetail;
   int totalPost=-1;
   bool dataLoaded = false;
@@ -77,37 +74,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.dispose();
      scrollController.dispose();
   }
-  // void _handleTabSelection() {
-  //   // showCustomSnackBar("Horizontalty scrool");
-  //    selected=_tabController!.index;
-  //
-  //    print("seleeeee ${selected}");
-  //    setState(() {});
-  //   // category=categoryList[selected-1];
-  //   // selected>0?category:loadPosts(totalPost);
-  // }
 
-  // void _handleScroll() {
-  //   if(scrollController.position.pixels >= scrollController.position.maxScrollExtent){
-  //     print("max scroll");
-  //     if(totalPost>int.parse(offset)+6&&!isLoading) {
-  //       offset = (int.parse(offset) +6).toString();
-  //       print("load more");
-  //       selected>0?category:loadPosts(totalPost);
-  //       isLoading=true;
-  //     }
-  //     else{
-  //       print("post not avilable");
-  //     }
-  //
-  //   }
-  //   else{
-  //     print("no max scroll");
-  //   }
-  // }
   @override
   Widget build(BuildContext context) {
-    print("setState called");
     return Scaffold(
       drawer: new MyDrawer(),
       appBar: CustomAppBar(leading: Images.menu,title: Images.logo_name,isSuffix: false,),
@@ -128,8 +97,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
         ),
       ),
-      body: dataLoaded == false
-          ? Center(child: CircularProgressIndicator(color: Colors.amber,),) : SafeArea(child: Center(
+      body: dataLoaded == false ? Center(child: CircularProgressIndicator(color: Colors.amber,),) : SafeArea(child: Center(
         child: Container(
           child: Column(
             children: [
@@ -261,23 +229,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void getEmojis() async {
     var response;
     response = await DioService.get('get_all_emoji');
-    print("response------ from emoji aapi-----");
-    print(response);
     if(response['status']=='success'){
       var jsonData= response['data'] as List;
       emojies= jsonData.map<GetEmojis>((e) => GetEmojis.fromJson(e)).toList();
       for(int i= 0; i<emojies!.length; i++){
-        print(emojies![i].path);
+        // print(emojies![i].path);
         tabs.add(
           CategoryItem(
                isSelected: selected ==emojies![i].id?true:false,
               icon: 'assets/emojis/${emojies![i].path}',
               onTap: (){
-                print("seleteeee ${selected}");
-                print("emojies![i].id ${emojies![i].id}");
+                // print("seleteeee ${selected}");
+                // print("emojies![i].id ${emojies![i].id}");
                  _tabController!.index = emojies![i].id!;
-                setState(() {
-                });
+                setState(() {});
               }),
         );
 

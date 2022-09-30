@@ -80,7 +80,6 @@ class _FullTransitionState extends State<FullTransition> {
     if(response['status']=='success'){
       var jsonData= response['data'] as List;
       postDetail=  jsonData.map<PostDetail>((e) => PostDetail.fromJson(e)).toList();
-      print('----------postDetail.first.categories-----------------------');
 
       totalPost = postDetail.length;
     }
@@ -105,12 +104,9 @@ class _FullTransitionState extends State<FullTransition> {
       "userCountry": AppData().userdetail!.country,
     };
     response = await DioService.post('emoji_posts', data);
-
-    print(response);
     if(response['status']=='success'){
       var jsonData= response['data'] as List;
       postDetail=  jsonData.map<PostDetail>((e) => PostDetail.fromJson(e)).toList();
-      print('----------postDetail.first.categories-----------------------');
 
       totalPost = postDetail.length;
     }
@@ -155,22 +151,11 @@ class _FullTransitionState extends State<FullTransition> {
 
                         /// User Detail
                         UserInfo(postDetail: postDetail[index],),
-                        /// Post Title
-                        Container(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.01,),
-                          width: MediaQuery.of(context).size.width*0.9,
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            children: [
 
-                            ],
-                          ),
-                        ),
 
                         /// Upper emoji list
                         Container(
-                          height: 75,
+                          height: 65,
                           child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.horizontal,
@@ -189,31 +174,32 @@ class _FullTransitionState extends State<FullTransition> {
                                         children: [
                                           SizedBox(height: 12,),
                                           Container(
-                                            child: SvgPicture.asset('assets/emojis/${postDetail[index].uppercategories![index1].path}',height: 25),
+                                            child: SvgPicture.asset('assets/emojis/${postDetail[index].uppercategories![index1].path}',height: 20),
                                           ),
                                           SizedBox(height: 5,),
-                                          Text(postDetail[index].uppercategories![index1].count.toString(),style: TextStyle(color: Colors.black,fontSize: 14),),
+                                          Text(postDetail[index].uppercategories![index1].count.toString(),style: TextStyle(color: Colors.black,fontSize: 12),),
 
                                         ],
                                       ),
                                     ),
                                     Positioned(
-                                      top: 1,
-                                      left:0,
+                                      top: 10,
+                                      left:9,
                                       child: LikeButton(
                                         onTap: (value) async {
                                           await addEmojiToPost(postDetail[index].newsPostId,postDetail[index].uppercategories![index1].id);
                                           loadEmojis(widget.cateID!);
                                           return !value;
                                         },
-                                        animationDuration: Duration(seconds: 3),
-                                        size: 45,
+                                        animationDuration: Duration(seconds: 5),
+                                        size: 25,
                                         likeBuilder: (isTapped){
                                           return Icon(Icons.circle,
                                             color: isTapped? Colors.transparent:Colors.transparent,
                                           );
                                         },
-
+                                        circleSize: 0.0,
+                                        circleColor: CircleColor(start: Colors.transparent, end: Colors.transparent),
                                       ),
                                     ),
 
@@ -224,22 +210,19 @@ class _FullTransitionState extends State<FullTransition> {
                             },
                           ),
                         ),
+
                         /// News Description
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Stack(
-                            children: [
-                              Text(
-                                postDetail[index].description!,
-                                // maxLines: isReadMore?100:3,
-                                style: openSansRegular.copyWith(fontSize: Dimensions.fontSizeSmall+1,color: Colors.black,overflow: TextOverflow.fade),
-                              ),
-
-                            ],
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            postDetail[index].description!,
+                            style: openSansRegular.copyWith(fontSize: Dimensions.fontSizeSmall+1,color: Colors.black,overflow: TextOverflow.fade),
                           ),
                         ),
+
+                        ///Lower emoji list
                         Container(
-                          height: 75,
+                          height: 70,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             physics: NeverScrollableScrollPhysics(),
@@ -256,34 +239,35 @@ class _FullTransitionState extends State<FullTransition> {
                                       width: MediaQuery.of(context).size.width*0.13,
                                       child: Column(
                                         children: [
-                                          SizedBox(height: 12,),
+                                          SizedBox(height: 20,),
                                           Container(
-                                            child: SvgPicture.asset('assets/emojis/${postDetail[index].lowercategories![index2].path}',height: 25),
+                                            child: SvgPicture.asset('assets/emojis/${postDetail[index].lowercategories![index2].path}',height: 20),
                                           ),
                                           SizedBox(height: 5,),
-                                          Text(postDetail[index].lowercategories![index2].count.toString(),style: TextStyle(color: Colors.black,fontSize: 14),)
+                                          Text(postDetail[index].lowercategories![index2].count.toString(),style: TextStyle(color: Colors.black,fontSize: 12),)
                                         ],
                                       ),
                                     ),
                                     Positioned(
-                                      left:0,
+                                      top: 18,
+                                      left:12,
                                       child: LikeButton(
                                         onTap: (value) async {
                                           await  addEmojiToPost(postDetail[index].newsPostId,postDetail[index].lowercategories![index2].id);
                                           loadEmojis(widget.cateID!);
                                           return !value;
                                         },
-                                        animationDuration: Duration(seconds: 3),
-                                        size: 50,
+                                        animationDuration: Duration(seconds: 5),
+                                        size: 25,
                                         likeBuilder: (isTapped){
                                           return Icon(Icons.circle,
                                             color: isTapped? Colors.transparent:Colors.transparent,
                                           );
                                         },
-
+                                        circleSize: 0.0,
+                                        circleColor: CircleColor(start: Colors.transparent, end: Colors.transparent),
                                       ),
                                     ),
-
                                   ],
 
                                 ),
@@ -300,7 +284,7 @@ class _FullTransitionState extends State<FullTransition> {
                           color: Colors.grey.withOpacity(0.4),
                         ),
 
-                        ///Post Image
+
 
                         SizedBox(height: 8,),
                         /// Action Bar
@@ -319,9 +303,7 @@ class _FullTransitionState extends State<FullTransition> {
                               VerticalTile(icon: Images.comment, title: '(${ postDetail[index].totalComments.toString()})',isBlack: true,
                                   onTap: (){
                                 isComment=!isComment;
-                                setState(() {
-
-                                });
+                                setState(() { });
                               }),
                               InkWell(
                                   onTap: () async {
@@ -332,8 +314,7 @@ class _FullTransitionState extends State<FullTransition> {
                               InkWell(
                                 onTap: () {
                                   Get.dialog(ReportDialog(postDetail:  postDetail[index]));
-
-                                },
+                                  },
                                 child: Icon(Icons.info_outline,size: 25,color: Colors.grey.withOpacity(0.5),),
                               ),
 
@@ -354,15 +335,7 @@ class _FullTransitionState extends State<FullTransition> {
     ):Center(child: NoDataScreen());
 
   }
-  // void translate() async {
-  //   var translation=await widget.postDetail!.title!.translate(to: AppData().language!.languageCode);
-  //   var translator=await widget.postDetail!.description!.translate(to: AppData().language!.languageCode);
-  //   if(mounted){
-  //     widget.postDetail!.title=translation.text;
-  //     widget.postDetail!.description=translator.text;
-  //     setState(() {});
-  //   }
-  // }
+
   Future<void> bookmarkPost(postId) async {
     // openLoadingDialog(context, "Loading");
     var response;
@@ -383,7 +356,7 @@ class _FullTransitionState extends State<FullTransition> {
       //showCustomSnackBar(response['data'],isError: false);
     }
     else{
-      Navigator.pop(context);
+      // Navigator.pop(context);
       setState(() {
 
       });
@@ -427,9 +400,6 @@ class _FullTransitionState extends State<FullTransition> {
       "categoryId":cateID,
     };
     response = await DioService.post('add_emoji_to_post', data);
-    print(response);
-    print('--------------------------------------------');
-    print(data);
     if(response['status']=='success'){
       setState(() {
 
@@ -438,7 +408,7 @@ class _FullTransitionState extends State<FullTransition> {
 
     }
     else{
-      showCustomSnackBar('You cannot add more than three emoji to the post');
+      // showCustomSnackBar('You cannot add more than three emoji to the post');
       setState(() {});
       // Navigator.pop(context);
 
