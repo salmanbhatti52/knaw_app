@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:http/http.dart' as http;
@@ -33,6 +34,7 @@ import 'package:translator/translator.dart';
 
 class PostPage extends StatefulWidget {
   PostDetail? postDetail;
+  int? userId;
   PostPage({Key? key, this.postDetail,}) : super(key: key);
 
   @override
@@ -42,11 +44,13 @@ class PostPage extends StatefulWidget {
 class _PostPageState extends State<PostPage> {
   bool isComment=false;
   bool isReadMore=false;
+  int totalPost=-1;
+  bool isLoading=true;
+
   List<PostDetail> postDetail = [];
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('Data from bookmark-----------------');
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       translate();
     });
@@ -177,7 +181,6 @@ class _PostPageState extends State<PostPage> {
                               child: LikeButton(
                                 onTap: (value) async {
                                  await addEmojiToPost(widget.postDetail!.newsPostId,widget.postDetail!.lowercategories![index1].id);
-
                                   return !value;
                                 },
                                 animationDuration: Duration(seconds: 5),
@@ -332,6 +335,71 @@ class _PostPageState extends State<PostPage> {
 
       });
       // Navigator.pop(context);
+
+    }
+  }
+  Future<void> loadMyPosts() async {
+    print("loadMyPosts()");
+    //openLoadingDialog(context, "Loading");
+    var response;
+    response = await DioService.post('get_my_posts', {
+      "usersId" : widget.userId
+    });
+    if(response['status']=='success'){
+      var jsonData= response['data'] as List;
+      postDetail=  jsonData.map<PostDetail>((e) => PostDetail.fromJson(e)).toList();
+      // print(postDetail![0].isViewed);
+      // print(postDetail![0].userVerified);
+      //Navigator.pop(context);
+      isLoading=false;
+      if(mounted){
+        setState(() {
+
+        });
+      }
+      totalPost=postDetail.length;
+      print(totalPost.toString());
+    }
+    else{
+      //Navigator.pop(context);
+      isLoading=false;
+      if(mounted){
+        setState(() {
+
+        });
+      }
+      // showCustomSnackBar(response['message']);
+      totalPost=0;
+      print(totalPost.toString());
+
+    }
+  }
+  Future<void> loadOtherPosts() async {
+    print("loadOtherPosts()");
+    //openLoadingDialog(context, "Loading");
+    var response;
+    response = await DioService.post('get_other_user_posts', {
+      "usersId" : AppData().userdetail!.usersId,
+      "otherUserId" : widget.userId
+    });
+    if(response['status']=='success'){
+      var jsonData= response['data'] as List;
+      postDetail=  jsonData.map<PostDetail>((e) => PostDetail.fromJson(e)).toList();
+      print(postDetail[0].userVerified);
+      //Get.back();
+      isLoading=false;
+      if (mounted) {
+        setState(() {});
+      }
+      totalPost=postDetail.length;
+      print(totalPost.toString());
+    }
+    else{
+      isLoading=false;
+      setState(() {});
+      //showCustomSnackBar(response['message']);
+      totalPost=0;
+      print(totalPost.toString());
 
     }
   }

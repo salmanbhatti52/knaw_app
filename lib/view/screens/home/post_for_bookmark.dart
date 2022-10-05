@@ -45,7 +45,6 @@ class _BookmarkPostState extends State<BookmarkPost> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('Data from bookmark-----------------');
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       translate();
     });
@@ -89,33 +88,7 @@ class _BookmarkPostState extends State<BookmarkPost> {
                 ),
 
 
-                // Container(
-                //   height: 65,
-                //   child: ListView.builder(
-                //     scrollDirection: Axis.horizontal,
-                //     itemCount:widget.postDetail!.categories!.length,
-                //     itemBuilder: (context, index1) {
-                //       return  GestureDetector(
-                //         onTap: (){
-                //           addEmojiToPost(widget.postDetail!.newsPostId,widget.postDetail!.categories![index1].id);
-                //         },
-                //         child: Column(
-                //           children: [
-                //             SizedBox(height: 8,),
-                //             Container(
-                //               child: Padding(
-                //                 padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
-                //                 child: SvgPicture.asset('assets/emojis/${widget.postDetail!.categories![index1].path}',height: 30),
-                //               ),
-                //             ),
-                //             SizedBox(height: 5,),
-                //             Text(widget.postDetail!.categories![index1].count.toString(),style: TextStyle(color: Colors.black,fontSize: 14),)
-                //           ],
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
+
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
                   height: 1.3,

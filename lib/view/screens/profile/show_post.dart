@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -28,16 +30,26 @@ class _ShowPostState extends State<ShowPost> {
   int totalPost=-1;
   bool isLoading=true;
   List<PostDetail>? postDetail;
+  Timer? timer;
+  late FocusNode myFocusNode;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (mounted) {
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-        widget.userId==AppData().userdetail!.usersId?loadMyPosts():loadOtherPosts();
-      });
-    }
+     myFocusNode = FocusNode();
+    timer = Timer.periodic(Duration(seconds: 3), (Timer t) =>   widget.userId==AppData().userdetail!.usersId?loadMyPosts():loadOtherPosts());
+    // if (mounted) {
+    //   WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    //     widget.userId==AppData().userdetail!.usersId?loadMyPosts():loadOtherPosts();
+    //   });
+    // }
 
+  }
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    timer?.cancel();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
