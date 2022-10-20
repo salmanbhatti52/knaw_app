@@ -102,5 +102,7 @@
         <string>TRUE</string>
         <key>FacebookAdvertiserIDCollectionEnabled</key>
         <string>TRUE</string>
-    </dict>
+    	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+</dict>
 </plist>
