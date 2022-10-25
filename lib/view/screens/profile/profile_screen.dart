@@ -10,7 +10,6 @@ import 'package:knaw_news/util/dimensions.dart';
 import 'package:knaw_news/util/images.dart';
 import 'package:knaw_news/util/styles.dart';
 import 'package:knaw_news/view/base/custom_image.dart';
-import 'package:knaw_news/view/base/custom_snackbar.dart';
 import 'package:knaw_news/view/base/loading_dialog.dart';
 import 'package:knaw_news/view/screens/dashboard/dashboard_screen.dart';
 import 'package:knaw_news/view/screens/dashboard/widget/bottom_nav_item.dart';
@@ -23,50 +22,70 @@ import 'package:knaw_news/view/screens/setting/setting.dart';
 
 class ProfileScreen extends StatefulWidget {
   int index;
-  ProfileScreen({this.index=0});
+  ProfileScreen({this.index = 0});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateMixin {
-  UserDetail userDetail =UserDetail();
+class _ProfileScreenState extends State<ProfileScreen>
+    with TickerProviderStateMixin {
+  UserDetail userDetail = UserDetail();
   late TabController _tabController;
 
-
+  @override
   void initState() {
     super.initState();
-      _tabController = TabController(length: 3, initialIndex: widget.index, vsync: this);
+    _tabController =
+        TabController(length: 3, initialIndex: widget.index, vsync: this);
 
     // print(AppData().userdetail!.toJson());
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       getProfileDetail();
     });
-
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: new MyDrawer(),
-      appBar: new CustomAppBar(leading: Images.menu,title: AppData().language!.profile,suffix: Images.setting,isTitle: true,isSuffix: true,suffixTap: () => Get.to(() => SettingScreen()),),
+      drawer: MyDrawer(),
+      appBar: CustomAppBar(
+        leading: Images.menu,
+        title: AppData().language!.profile,
+        suffix: Images.setting,
+        isTitle: true,
+        isSuffix: true,
+        suffixTap: () => Get.to(() => SettingScreen()),
+      ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
         child: BottomAppBar(
           //elevation: 0.0,
           //notchMargin: 2,
           //clipBehavior: Clip.antiAlias,
           //shape: CircularNotchedRectangle(),
           child: Padding(
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  BottomNavItem(iconData: Images.home,isSelected: false, onTap: () => Get.to(DashboardScreen(pageIndex: 0))),
-                  BottomNavItem(iconData: Images.search, isSelected: false , onTap: () => Get.to(DashboardScreen(pageIndex: 1))),
-                  BottomNavItem(iconData: Images.add,isSelected: false, onTap: () => Get.to(DashboardScreen(pageIndex: 2))),
-                  BottomNavItem(iconData: Images.user,isSelected: false, onTap: () => Get.to(ProfileScreen())),
+                  BottomNavItem(
+                      iconData: Images.home,
+                      isSelected: false,
+                      onTap: () => Get.to(DashboardScreen(pageIndex: 0))),
+                  BottomNavItem(
+                      iconData: Images.search,
+                      isSelected: false,
+                      onTap: () => Get.to(DashboardScreen(pageIndex: 1))),
+                  BottomNavItem(
+                      iconData: Images.add,
+                      isSelected: false,
+                      onTap: () => Get.to(DashboardScreen(pageIndex: 2))),
+                  BottomNavItem(
+                      iconData: Images.user,
+                      isSelected: false,
+                      onTap: () => Get.to(ProfileScreen())),
                   // BottomNavItem(title:'home'.tr,iconData: Images.home, isSelected: _pageIndex == 0, onTap: () => _setPage(0)),
                   // BottomNavItem(title:'favourite'.tr,iconData: Images.favorite, isSelected: _pageIndex == 1, onTap: () => _setPage(1)),
                   // Expanded(child: SizedBox()),
@@ -78,169 +97,212 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
           ),
         ),
       ),
-      body: Container(child: Column(
-        children: [
-          Container(
-            //height: 220,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
-            ),
-            alignment: Alignment.topCenter,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.amber,
-                            width: 4,
-                          ),
-                          shape: BoxShape.circle
-                      ),
-
-                      child: Stack(
-                        children: [
-                          ClipOval(
-                            child: userDetail.profilePicture == null || userDetail.profilePicture == "" ?CustomImage(
-                              image: Images.placeholder,
-                              height: 90,
-                              width: 90,
-                              fit: BoxFit.cover,
-                            ):Image.network(
-                              userDetail.profilePicture??'',
-                              width: 90,height: 90,fit: BoxFit.cover,
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              //height: 220,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
+              ),
+              alignment: Alignment.topCenter,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.05),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.amber,
+                              width: 4,
                             ),
-                          ),
-                          userDetail.userVerified==null?SizedBox():userDetail.userVerified?Positioned(
-                            bottom: 2, right: 2,
-                            child: SvgPicture.asset(Images.badge,),
-                          ):SizedBox(),
-                        ],
+                            shape: BoxShape.circle),
+                        child: Stack(
+                          children: [
+                            ClipOval(
+                              child: userDetail.profilePicture == null ||
+                                      userDetail.profilePicture == ""
+                                  ? CustomImage(
+                                      image: Images.placeholder,
+                                      height: 90,
+                                      width: 90,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      userDetail.profilePicture ?? '',
+                                      width: 90,
+                                      height: 90,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                            userDetail.userVerified == null
+                                ? const SizedBox()
+                                : userDetail.userVerified
+                                    ? Positioned(
+                                        bottom: 2,
+                                        right: 2,
+                                        child: SvgPicture.asset(
+                                          Images.badge,
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                          ],
+                        ),
                       ),
-
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(userDetail.userName??"Name",style: openSansExtraBold.copyWith(color:Colors.black),),
-
-                          Text("${AppData().language!.joined} "+userDetail.joinedSince.toString(),style: openSansRegular.copyWith(color:textColor),),
-
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                child: SvgPicture.asset(Images.followers,color: Colors.black,),
-                              ),
-                              SizedBox(width: 5,),
-                              Text(AppData().language!.followers,style: openSansRegular.copyWith(color:Colors.black),),
-                              SizedBox(width: 5,),
-                              Text(userDetail.totalFollowers.toString(),style: openSansRegular.copyWith(color:Colors.black),),
-                            ],
-                          ),
-
-                        ],
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.05),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              userDetail.userName ?? "Name",
+                              style: openSansExtraBold.copyWith(
+                                  color: Colors.black),
+                            ),
+                            Text(
+                              "${AppData().language!.joined} " +
+                                  userDetail.joinedSince.toString(),
+                              style: openSansRegular.copyWith(color: textColor),
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                  child: SvgPicture.asset(
+                                    Images.followers,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  AppData().language!.followers,
+                                  style: openSansRegular.copyWith(
+                                      color: Colors.black),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  userDetail.totalFollowers.toString(),
+                                  style: openSansRegular.copyWith(
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-
-                  ],
-                ),
-                Container(
-                  alignment: Alignment.topLeft,
-                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.05,vertical: 10),
-                    child: Text(userDetail.description??'',style: openSansRegular.copyWith(color:Colors.black),)),
-              ],
+                    ],
+                  ),
+                  Container(
+                      alignment: Alignment.topLeft,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.05,
+                          vertical: 10),
+                      child: Text(
+                        userDetail.description ?? '',
+                        style: openSansRegular.copyWith(color: Colors.black),
+                      )),
+                ],
+              ),
             ),
-          ),
-          // Container(
-          //
-          //   child: Text("Profile",style: openSansExtraBold.copyWith(fontSize: 30),),
-          // ),
+            // Container(
+            //
+            //   child: Text("Profile",style: openSansExtraBold.copyWith(fontSize: 30),),
+            // ),
 
-          Container(
-            //padding: EdgeInsets.all(2),
-            margin: EdgeInsets.only(top: 10),
+            Container(
+              //padding: EdgeInsets.all(2),
+              margin: const EdgeInsets.only(top: 10),
 
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
-            ),
-            child: Container(
-              height: 35,
-              padding: EdgeInsets.all(3),
-              width: MediaQuery.of(context).size.width*0.7,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.white,
               ),
-              child: TabBar(
-                dragStartBehavior: DragStartBehavior.down,
-                labelPadding: EdgeInsets.all(2),
-                controller: _tabController,
-                indicator: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadiusDirectional.circular(20),
+              child: Container(
+                height: 35,
+                padding: const EdgeInsets.all(3),
+                width: MediaQuery.of(context).size.width * 0.7,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
                 ),
-                indicatorColor:Theme.of(context).primaryColor,
-                indicatorWeight: 3,
-                labelColor:Colors.black,
-                unselectedLabelColor:Colors.black,
-                unselectedLabelStyle: openSansBold.copyWith(color: Theme.of(context).disabledColor, fontSize: Dimensions.fontSizeSmall),
-                labelStyle: openSansBold.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
-                tabs: [
-                  Tab(text: AppData().language!.posts),
-                  Tab(text: AppData().language!.bookmarks),
-                  Tab(text: AppData().language!.stats),
+                child: TabBar(
+                  dragStartBehavior: DragStartBehavior.down,
+                  labelPadding: const EdgeInsets.all(2),
+                  controller: _tabController,
+                  indicator: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadiusDirectional.circular(20),
+                  ),
+                  indicatorColor: Theme.of(context).primaryColor,
+                  indicatorWeight: 3,
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.black,
+                  unselectedLabelStyle: openSansBold.copyWith(
+                      color: Theme.of(context).disabledColor,
+                      fontSize: Dimensions.fontSizeSmall),
+                  labelStyle: openSansBold.copyWith(
+                      fontSize: Dimensions.fontSizeSmall,
+                      color: Theme.of(context).primaryColor),
+                  tabs: [
+                    Tab(text: AppData().language!.posts),
+                    Tab(text: AppData().language!.bookmarks),
+                    Tab(text: AppData().language!.stats),
+                  ],
+                ),
+              ),
+            ),
+
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  ShowPost(userId: AppData().userdetail!.usersId),
+                  Bookmarks(
+                    userId: AppData().userdetail!.usersId,
+                  ),
+                  StatsScreen(
+                    userId: AppData().userdetail!.usersId,
+                  ),
                 ],
               ),
             ),
-          ),
-
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                ShowPost(userId: AppData().userdetail!.usersId),
-                Bookmarks(userId: AppData().userdetail!.usersId,),
-                StatsScreen(userId: AppData().userdetail!.usersId,),
-              ],
-            ),
-          ),
-        ],
-      ),),
+          ],
+        ),
+      ),
     );
   }
+
   Future<void> getProfileDetail() async {
     var response;
     openLoadingDialog(context, "Loading");
-    response = await DioService.post('get_loggedin_profile_details', {
-      "usersId" : AppData().userdetail!.usersId
-    });
-    if(response['status']=='success'){
-      var jsonData= response['data'];
-      userDetail  =  UserDetail.fromJson(jsonData);
+    response = await DioService.post('get_loggedin_profile_details',
+        {"usersId": AppData().userdetail!.usersId});
+    if (response['status'] == 'success') {
+      var jsonData = response['data'];
+      userDetail = UserDetail.fromJson(jsonData);
       print(userDetail.toJson());
       print(userDetail.userVerified);
 
       Navigator.pop(context);
       setState(() {});
       // showCustomSnackBar(response['status'],isError: false);
-    }
-    else{
+    } else {
       Navigator.pop(context);
-      setState(() {
-
-      });
-     // showCustomSnackBar(response['message']);
+      setState(() {});
+      // showCustomSnackBar(response['message']);
 
     }
   }
-
 }
-

@@ -78,8 +78,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: new MyDrawer(),
-      appBar: CustomAppBar(leading: Images.menu,title: Images.logo_name,isSuffix: false,),
+      drawer:  MyDrawer(),
+      appBar: CustomAppBar(leading: Images.menu,
+      title: Images.logo_name,isSuffix: false,),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
         child: BottomAppBar(

@@ -37,18 +37,14 @@ class NotificationDetail{
   @JsonKey(name: 'news_post_picture',)
   String? newsPostPicture;
   @JsonKey(name: 'days_ago',)
-  String? daysAgo;
+  dynamic daysAgo;
   @JsonKey(name: 'user_is_verified',)
   bool? userVerified;
 
   NotificationDetail({this.notificationId,this.senderUsersId,this.receiverUsersId,this.notificationType,
   this.message,this.newsPostId,this.datetime,this.senderUsername,this.isFollowingBack,this.senderUserProfilePicture,
-    this.newsPostPicture,this.daysAgo,this.userVerified
+    this.newsPostPicture,this.userVerified,this.daysAgo
   });
   Map<String, dynamic> toJson() => _$NotificationDetailToJson(this);
   factory NotificationDetail.fromJson(json) => _$NotificationDetailFromJson(json);
 }
-
-
-
-

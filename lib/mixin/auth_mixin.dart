@@ -1,4 +1,3 @@
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:knaw_news/model/language_model.dart';
@@ -11,11 +10,10 @@ mixin AuthData {
   static Language? _language;
   static String? _accessToken;
   static SharedPreferences? prefs;
-  static bool _isGoogleLogin=false;
-  static bool _isFacebookLogin=false;
+  static bool _isGoogleLogin = false;
+  static final bool _isFacebookLogin = false;
 
   static Future<void> initiate() async {
-
     Hive.registerAdapter(ProfileAdapter());
     Hive.registerAdapter(UserDetailAdapter());
     Hive.registerAdapter(LanguageAdapter());
@@ -34,20 +32,16 @@ mixin AuthData {
     }
     _accessToken = prefs!.getString('access_token');
 
-
     if (box2.isNotEmpty) {
       _userdetail = await box2.getAt(0);
     }
     _accessToken = prefs!.getString('access_token');
-
-
 
     if (box3.isNotEmpty) {
       _language = await box3.getAt(0);
     }
     _accessToken = prefs!.getString('access_token');
   }
-
 
   Future<void> clearLanguage() async {
     await Hive.lazyBox<UserDetail>('language').clear();
@@ -56,42 +50,34 @@ mixin AuthData {
   Future<void> signOut() async {
     _profile = null;
     _accessToken = null;
-    FacebookAuth.i.logOut();
+    // FacebookAuth.i.logOut();
     GoogleSignIn().signOut();
     SharedPreferences.getInstance().then((value) => value.clear());
     await Hive.lazyBox<UserDetail>('userDetail').clear();
     await Hive.lazyBox<Profile>('profiles').clear();
-
   }
 
   Future<void> update() async {
     //Hive.lazyBox<UserDetail>('userDetail').putAt(index, userdetail);
     Hive.lazyBox<UserDetail>('userDetail')
-        .putAt(0,userdetail!)
+        .putAt(0, userdetail!)
         .then((value) => userdetail!.save());
-
   }
 
   Future<void> updateLanguage() async {
     //Hive.lazyBox<UserDetail>('userDetail').putAt(index, userdetail);
     Hive.lazyBox<Language>('language')
-        .putAt(0,language!)
+        .putAt(0, language!)
         .then((value) => language!.save());
   }
-
-
-
 
   Profile? get profile => _profile;
   set profile(Profile? prof) {
     _profile = prof;
     Hive.lazyBox<Profile>('profiles').clear().then((value) {
-      Hive.lazyBox<Profile>('profiles')
-          .add(prof!)
-          .then((value) => prof.save());
+      Hive.lazyBox<Profile>('profiles').add(prof!).then((value) => prof.save());
     });
   }
-
 
   Language? get language => _language;
   set language(Language? lang) {
@@ -103,7 +89,7 @@ mixin AuthData {
     });
   }
 
-  UserDetail?  get  userdetail => _userdetail;
+  UserDetail? get userdetail => _userdetail;
   set userdetail(UserDetail? userdetail) {
     _userdetail = userdetail;
     Hive.lazyBox<UserDetail>('userDetail').clear().then((value) {
@@ -113,22 +99,25 @@ mixin AuthData {
     });
   }
 
-  bool get isGoogleLogin=> _isGoogleLogin;
-    set isGoogleLogin(bool isGoogle){
-      _isGoogleLogin=isGoogle;
-      SharedPreferences.getInstance().then((value) => value.setBool('loginGoogle', isGoogle));
-    }
-
-  bool get isFacebookLogin=> _isFacebookLogin;
-  set isFacebookLogin(bool isFacebook){
-    _isGoogleLogin=isFacebook;
-    SharedPreferences.getInstance().then((value) => value.setBool('loginFacebook', isFacebook));
+  bool get isGoogleLogin => _isGoogleLogin;
+  set isGoogleLogin(bool isGoogle) {
+    _isGoogleLogin = isGoogle;
+    SharedPreferences.getInstance()
+        .then((value) => value.setBool('loginGoogle', isGoogle));
   }
 
-  String get accessToken => _accessToken??'';
+  bool get isFacebookLogin => _isFacebookLogin;
+  set isFacebookLogin(bool isFacebook) {
+    _isGoogleLogin = isFacebook;
+    SharedPreferences.getInstance()
+        .then((value) => value.setBool('loginFacebook', isFacebook));
+  }
+
+  String get accessToken => _accessToken ?? '';
   set accessToken(String token) {
     _accessToken = token;
-    SharedPreferences.getInstance().then((value) => value.setString('access_token', token));
+    SharedPreferences.getInstance()
+        .then((value) => value.setString('access_token', token));
   }
 
   bool get isAuthenticated => _userdetail != null;

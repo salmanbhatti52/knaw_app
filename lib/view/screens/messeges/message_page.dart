@@ -29,61 +29,56 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
-
-  List<GetAllChats> chatsDetail=[];
+  List<GetAllChats> chatsDetail = [];
   Timer? timer;
 
-  ScrollController _controller= ScrollController();
-
+  final ScrollController _controller = ScrollController();
 
   Future getChat() async {
-    try{
+    try {
       var response = await DioService.post('chat', {
-        "userId" : AppData().userdetail!.usersId,
-        "requestType" : "getChatList"
+        "userId": AppData().userdetail!.usersId,
+        "requestType": "getChatList"
       });
-      var chats= response['data'] as List;
-      chatsDetail =    chats.map<GetAllChats>((e) =>  GetAllChats.fromJson(e)).toList();
+      var chats = response['data'] as List;
+      chatsDetail =
+          chats.map<GetAllChats>((e) => GetAllChats.fromJson(e)).toList();
       print(chatsDetail.toList());
       setState(() {});
-    }
-    catch(e){
+    } catch (e) {
       // Navigator.of(context).pop();
       // showSuccessToast(e.toString());
     }
   }
 
   Future getChatList() async {
-    try{
+    try {
       var response = await DioService.post('chat', {
-        "userId" : AppData().userdetail!.usersId,
-        "requestType" : "getChatList"
+        "userId": AppData().userdetail!.usersId,
+        "requestType": "getChatList"
       });
-      var chats= response['data'] as List;
-      chatsDetail =    chats.map<GetAllChats>((e) =>  GetAllChats.fromJson(e)).toList();
+      var chats = response['data'] as List;
+      chatsDetail =
+          chats.map<GetAllChats>((e) => GetAllChats.fromJson(e)).toList();
       // print(chatsDetail.toList());
 
       Navigator.of(context).pop();
       setState(() {});
-    }
-    catch(e){
+    } catch (e) {
       Navigator.of(context).pop();
       // showSuccessToast(e.toString());
     }
   }
 
-
-
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) =>  getChat());
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => getChat());
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       openLoadingDialog(context, "loading...");
       getChatList();
     });
   }
-
 
   @override
   void dispose() {
@@ -91,53 +86,69 @@ class _MessagePageState extends State<MessagePage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: new MyDrawer(),
+      drawer: MyDrawer(),
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarBrightness: Brightness.dark,
-            statusBarColor: Colors.white
-        ),
-        shape: RoundedRectangleBorder(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.dark, statusBarColor: Colors.white),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(10.0),
           ),
         ),
         elevation: 0,
         leading: GestureDetector(
-          onTap: (){
+          onTap: () {
             Scaffold.of(context).openDrawer();
           },
           child: Builder(
             builder: (context) => IconButton(
               icon: Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: SvgPicture.asset(Images.menu, width: 20,color: Colors.black,),
+                child: SvgPicture.asset(
+                  Images.menu,
+                  width: 20,
+                  color: Colors.black,
+                ),
               ),
               onPressed: () => Scaffold.of(context).openDrawer(),
             ),
           ),
         ),
-        title: Text('Message',style: openSansExtraBold.copyWith(color: Colors.black),),
+        title: Text(
+          'Message',
+          style: openSansExtraBold.copyWith(color: Colors.black),
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
         child: BottomAppBar(
           child: Padding(
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  BottomNavItem(iconData: Images.home,isSelected: false, onTap: () => Get.to(HomeScreen())),
-                  BottomNavItem(iconData: Images.search, isSelected: false , onTap: () => Get.to(SearchScreen())),
-                  BottomNavItem(iconData: Images.add,isSelected: false, onTap: () => Get.to(PostScreen())),
-                  BottomNavItem(iconData: Images.user,isSelected: false, onTap: () => Get.to(ProfileScreen())),
+                  BottomNavItem(
+                      iconData: Images.home,
+                      isSelected: false,
+                      onTap: () => Get.to(HomeScreen())),
+                  BottomNavItem(
+                      iconData: Images.search,
+                      isSelected: false,
+                      onTap: () => Get.to(const SearchScreen())),
+                  BottomNavItem(
+                      iconData: Images.add,
+                      isSelected: false,
+                      onTap: () => Get.to(const PostScreen())),
+                  BottomNavItem(
+                      iconData: Images.user,
+                      isSelected: false,
+                      onTap: () => Get.to(ProfileScreen())),
                 ]),
           ),
         ),
@@ -145,28 +156,29 @@ class _MessagePageState extends State<MessagePage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: const BoxDecoration(color: Colors.white),
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               ListView.builder(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: chatsDetail.length,
                   shrinkWrap: true,
                   controller: _controller,
-                  itemBuilder: (context,index){
-                    GetAllChats chat=chatsDetail[index];
+                  itemBuilder: (context, index) {
+                    GetAllChats chat = chatsDetail[index];
                     return InkWell(
                       onTap: () {
-                        CustomNavigator.navigateTo(context, MessageDetailsPage(
-                          otherUserChatId: chat.user_id,
-                          userName: chat.name!,
-                          profilePic: chat.profile_pic!,
-                        ));
+                        CustomNavigator.navigateTo(
+                            context,
+                            MessageDetailsPage(
+                              otherUserChatId: chat.user_id,
+                              userName: chat.name!,
+                              profilePic: chat.profile_pic!,
+                            ));
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           children: [
                             Row(
@@ -175,22 +187,34 @@ class _MessagePageState extends State<MessagePage> {
                                   width: 55,
                                   height: 55,
                                   child: ProfileImagePicker(
-                                    onImagePicked: (value){},
+                                    onImagePicked: (value) {},
                                     previousImage: chat.profile_pic ?? "",
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Expanded(
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(vertical:10),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text(chat.name!, style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold,)),
+                                        Text(chat.name!,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            )),
                                         // SizedBox(height: 10),
-                                        Text(chat.message!, style: TextStyle(color:  Colors.black, fontSize: 12, fontWeight: FontWeight.w400, height: 1.5,
-                                        ),
+                                        Text(
+                                          chat.message!,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                            height: 1.5,
+                                          ),
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -198,18 +222,21 @@ class _MessagePageState extends State<MessagePage> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 20),
+                                const SizedBox(width: 20),
                                 Column(
                                   children: [
-                                    Text(chat.time!, style: TextStyle(color: Colors.grey.shade500, fontSize: 12)),
-                                    SizedBox(height: 20),
-                                    if(chat.badge!=0)
+                                    Text(chat.time!,
+                                        style: TextStyle(
+                                            color: Colors.grey.shade500,
+                                            fontSize: 12)),
+                                    const SizedBox(height: 20),
+                                    if (chat.badge != 0)
                                       notificationButton(chat.badge!)
                                   ],
                                 )
                               ],
                             ),
-                            Divider(color:  Colors.grey),
+                            const Divider(color: Colors.grey),
                           ],
                         ),
                       ),
