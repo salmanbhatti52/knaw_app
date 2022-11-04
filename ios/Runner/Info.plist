@@ -5,7 +5,7 @@
         <key>CFBundleDevelopmentRegion</key>
     	<string>$(DEVELOPMENT_LANGUAGE)</string>
     	<key>CFBundleDisplayName</key>
-    	<string>Knaw News</string>
+    	<string>Knaw App</string>
     	<key>CFBundleName</key>
         <string>knaw_news</string>
     	<key>CFBundleExecutable</key>

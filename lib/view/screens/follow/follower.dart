@@ -30,7 +30,7 @@ class _FollowerState extends State<Follower> {
     // TODO: implement initState
     super.initState();
     scrollController.addListener(_handleScroll);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       widget.userId == AppData().userdetail!.usersId
           ? myFollowersList()
           : otherFollowersList();

@@ -46,7 +46,7 @@ class _NewPassScreenState extends State<NewPassScreen> {
         elevation: 0,
         backgroundColor: Color(0xFFF8F8FA),
         leading: GestureDetector(child: Image.asset(Images.back, width: 50,),onTap: () => Get.back(),),
-        title: SvgPicture.asset(Images.logo_name,width: 100,),
+        title: SvgPicture.asset(Images.knaw_app_hori,width: 100,),
         centerTitle: true,
 
       ),

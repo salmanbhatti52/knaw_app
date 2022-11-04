@@ -25,7 +25,7 @@ class _AboutScreenState extends State<AboutScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getAbout();
     });
   }
