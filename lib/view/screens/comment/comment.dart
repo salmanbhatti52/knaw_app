@@ -40,7 +40,7 @@ class _CommentScreenState extends State<CommentScreen> {
     // TODO: implement initState
     super.initState();
     scrollController.addListener(_handleScroll);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getAllComments();
     });
   }

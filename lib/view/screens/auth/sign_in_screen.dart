@@ -68,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 Flexible(flex: 1, child: Image.asset(r'assets/image/icon.png')),
                 const Flexible(
                     flex: 2,
-                    child: Text('knawNews',
+                    child: Text('knaw App',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,

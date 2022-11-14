@@ -104,7 +104,7 @@ class _MyDrawerState extends State<MyDrawer> {
             DrawerItems(icon: Images.inbox, title: AppData().language!.inbox, onTap: () => Get.to(InboxScreen())),
             DrawerItems(icon: Images.message, title: 'Message', onTap: () => Get.to(MessagePage())),
             DrawerItems(icon: Images.bookmark, title: AppData().language!.bookmarkPosts, onTap: () => Get.to(ProfileScreen(index: 1,))),
-            DrawerItems(icon: Images.mynews, title: AppData().language!.myKnawNews, onTap: () => Get.to(ProfileScreen(index: 0,))),
+            DrawerItems(icon: Images.mynews, title: 'My Knaw App', onTap: () => Get.to(ProfileScreen(index: 0,))),
             DrawerItems(icon: Images.about, title: AppData().language!.about, onTap: () => Get.to(AboutScreen())),
             DrawerItems(icon: Images.contactus, title: AppData().language!.contactUs, onTap: () => Get.to(ContactUs())),
             DrawerItems(icon: Images.language, title: AppData().language!.language, onTap: () => Get.off(LanguageScreen())),

@@ -47,7 +47,7 @@ class _FullTransitionState extends State<FullTransition> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       // translate();
     });
     loadPosts(widget.cateID!);
@@ -59,7 +59,7 @@ class _FullTransitionState extends State<FullTransition> {
 
   Future<void> loadPosts(int cateID) async {
     // _tabController!.index=selected-1;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       openLoadingDialog(context, 'loading');
     });
 
@@ -87,7 +87,7 @@ class _FullTransitionState extends State<FullTransition> {
 
   Future<void> loadEmojis(int cateID) async {
     // _tabController!.index=selected-1;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       // openLoadingDialog(context, 'loading');
     });
 

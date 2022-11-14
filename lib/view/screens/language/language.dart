@@ -31,7 +31,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getAvailableLanguages();
     });
   }

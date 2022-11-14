@@ -28,7 +28,7 @@ class _StatsScreenState extends State<StatsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getUserStats();
     });
   }
