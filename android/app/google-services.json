@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1039543621874:android:99e9fc93049b7e7398186b",
         "android_client_info": {
-          "package_name": "com.knawnews.apps"
+          "package_name": "com.knaw.app"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "1039543621874-hghlqmlmaj47r0m2la55p4k35mnggm89.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.knawnews.apps",
+            "package_name": "com.knaw.app",
             "certificate_hash": "97f35d7674c323d3c8916d4fbc208692cd0bdc10"
           }
         },
@@ -42,7 +42,7 @@
               "client_id": "1039543621874-38rqrundtkhp43nf5aqeg2d5o0ufqo75.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.knawnews.apps"
+                "bundle_id": "com.knaw.app"
               }
             }
           ]

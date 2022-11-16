@@ -22,7 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getLanguage();
     });
   }
@@ -41,7 +41,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Column(children: [
                     const SizedBox(height: 20),
                     Image.asset(
-                      Images.logo_with_name,
+                      Images.logo_name_vertical,
                       width: 150,
                     ),
                     const SizedBox(height: 80),

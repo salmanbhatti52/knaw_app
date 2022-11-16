@@ -25,7 +25,7 @@ class _AboutScreenState extends State<AboutScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getAbout();
     });
   }
@@ -48,7 +48,8 @@ class _AboutScreenState extends State<AboutScreen> {
             child: Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                about,
+                //about,
+                'Social gateway to trending topics and trends organized into perfect categories for you to enjoy. Users manage content by rating posts by users, pushing posts into their most-voted emoji. Want to feel good? Check out the smiley posts. Want to fix the world\'s problems? Check out the angry emoji posts. Perhaps you want to feel warm and cuddly? Check the love heart posts. Content rated by the people for the people.',
                 style: openSansRegular.copyWith(color: textColor),
               ),
             ),

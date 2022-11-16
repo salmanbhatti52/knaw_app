@@ -74,7 +74,7 @@ class _MessagePageState extends State<MessagePage> {
   void initState() {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => getChat());
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       openLoadingDialog(context, "loading...");
       getChatList();
     });

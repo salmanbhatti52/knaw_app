@@ -29,7 +29,7 @@ class _SpecificPostState extends State<SpecificPost> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       loadSpecificPosts();
     });
   }

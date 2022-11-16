@@ -14,6 +14,7 @@ import 'package:knaw_news/view/screens/auth/sign_in_screen.dart';
 import 'package:knaw_news/view/screens/auth/social_login.dart';
 import 'package:knaw_news/view/screens/contact_us/contact_us.dart';
 import 'package:knaw_news/view/screens/dashboard/dashboard_screen.dart';
+import 'package:knaw_news/view/screens/delete/delete_account.dart';
 import 'package:knaw_news/view/screens/inbox/inbox.dart';
 import 'package:knaw_news/view/screens/language/language.dart';
 import 'package:knaw_news/view/screens/messeges/chat-model.dart';
@@ -104,10 +105,11 @@ class _MyDrawerState extends State<MyDrawer> {
             DrawerItems(icon: Images.inbox, title: AppData().language!.inbox, onTap: () => Get.to(InboxScreen())),
             DrawerItems(icon: Images.message, title: 'Message', onTap: () => Get.to(MessagePage())),
             DrawerItems(icon: Images.bookmark, title: AppData().language!.bookmarkPosts, onTap: () => Get.to(ProfileScreen(index: 1,))),
-            DrawerItems(icon: Images.mynews, title: AppData().language!.myKnawNews, onTap: () => Get.to(ProfileScreen(index: 0,))),
+            DrawerItems(icon: Images.mynews, title: 'My Knaw App', onTap: () => Get.to(ProfileScreen(index: 0,))),
             DrawerItems(icon: Images.about, title: AppData().language!.about, onTap: () => Get.to(AboutScreen())),
             DrawerItems(icon: Images.contactus, title: AppData().language!.contactUs, onTap: () => Get.to(ContactUs())),
             DrawerItems(icon: Images.language, title: AppData().language!.language, onTap: () => Get.off(LanguageScreen())),
+            DrawerItems(icon: Images.trash, title: 'Delete Account', onTap: () => Get.to(Delete())),
             Expanded(
               child: ListTile(
                 //leading: Image.asset(Images.language_icon,width: 25,),

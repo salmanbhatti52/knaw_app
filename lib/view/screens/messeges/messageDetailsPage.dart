@@ -28,9 +28,11 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
     late FocusNode myFocusNode;
     bool isEmojiShown=false;
     ScrollController _controller = ScrollController();
+    var cond = 1;
 
 
    Future sendMessage() async{
+
      if(isEmojiShown)
        isEmojiShown=false;
      setState(() {});
@@ -38,7 +40,7 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
       return ;
       else{
        print(message.text);
-       openLoadingDialog(context, 'sending');
+      // openLoadingDialog(context, 'sending');
        await startChat();
        var response;
        try{
@@ -51,9 +53,10 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
            "requestType" : "sendMessage"
          });
          print(response);
-         Navigator.of(context).pop();
-         FocusManager.instance.primaryFocus!.unfocus();
+        // Navigator.of(context).pop();
+         //FocusManager.instance.primaryFocus!.unfocus();
          message.clear();
+         _controller.animateTo(_controller.position.maxScrollExtent, duration: Duration(milliseconds: 300), curve: Curves.easeOut);
          // Timer(Duration(milliseconds: 500),() => _controller.jumpTo(_controller.position.maxScrollExtent));
          setState(() {});
        }
@@ -109,6 +112,7 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
     void initState() {
       // TODO: implement initState
       super.initState();
+     // _scrollDown();
        myFocusNode = FocusNode();
       timer = Timer.periodic(Duration(seconds: 1), (Timer t) =>  getMessages());
     //   WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -162,13 +166,24 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
+                  physics:  BouncingScrollPhysics(),
                   shrinkWrap: true,
                   controller: _controller,
-                  itemCount:messages.length,
+                  itemCount:messages.length+1,
+
                     itemBuilder: (context,index){
+                    if(index == messages.length){
+                      return Container(
+                        height: 70,
+                      );
+                    }
                     GetMessages message=messages[index];
-                    print(message.userId);
+                    if(index == 0){
+                      _controller.animateTo(_controller.position.maxScrollExtent, duration: Duration(milliseconds: 1), curve: Curves.easeOut);
+                      //cond++;
+                    }
+
+                     print(message.userId);
                     bool isMe = message.userId == AppData().userdetail!.usersId;
                     print(isMe);
                   return Container(
