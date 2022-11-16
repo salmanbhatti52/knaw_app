@@ -38,7 +38,25 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
         elevation: 0,
         backgroundColor: Color(0xFFF8F8FA),
         leading: GestureDetector(child: Image.asset(Images.back, width: 50,),onTap: () => Get.back(),),
-        title: SvgPicture.asset(Images.logo_name,width: 100,),
+        title:SizedBox(
+          height: 20,
+          width: 120,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(flex: 1, child: Image.asset(r'assets/image/icon.png')),
+              const Flexible(
+                  flex: 2,
+                  child: Text('knaw App',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold))
+              ),
+            ],
+          ),
+        ),
+        // title: SvgPicture.asset(Images.logo_name,width: 100,),
         centerTitle: true,
 
       ),

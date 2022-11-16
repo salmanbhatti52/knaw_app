@@ -33,7 +33,7 @@ class _SocialLoginState extends State<SocialLogin> {
   void initState() {
     super.initState();
     getOneSignalId();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       socialCheck();
     });
   }
@@ -64,7 +64,7 @@ class _SocialLoginState extends State<SocialLogin> {
               child: Container(
                 child: Column(children: [
                   Image.asset(
-                    Images.logo_with_name,
+                    Images.logo_name_vertical,
                     width: 150,
                   ),
                   //const SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
@@ -292,6 +292,8 @@ class _SocialLoginState extends State<SocialLogin> {
       isSocialLogin = response['message'];
       Navigator.of(context).pop();
       setState(() {});
+      print('inside social check');
+      print(response['message']);
     } else {
       Navigator.of(context).pop();
       print(response['message']);

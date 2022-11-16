@@ -44,7 +44,7 @@ class _FollowProfileState extends State<FollowProfile>
     super.initState();
     _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getProfileDetail();
     });
   }

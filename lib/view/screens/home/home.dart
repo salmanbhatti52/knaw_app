@@ -80,7 +80,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Scaffold(
       drawer:  MyDrawer(),
       appBar: CustomAppBar(leading: Images.menu,
-      title: Images.logo_name,isSuffix: false,),
+      title: Images.knaw_app_hori,
+        isSuffix: false,),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
         child: BottomAppBar(

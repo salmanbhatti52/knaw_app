@@ -2,9 +2,13 @@ class Images {
   static const String logo = 'assets/image/logo.png';
   static const String logo_svg = 'assets/image/logo_svg.svg';
   static const String logo_with_name = 'assets/image/logo_with_name.png';
+  static const String logo_with_name_new = 'assets/image/logo_with_name_new.png';
+  static const String knaw_app_hori= 'assets/image/knaw_app_hori.png';
+  static const String logo_name_vertical= 'assets/image/logo_name_vertical.png';
   static const String icon = 'assets/image/icon.png';
   static const String webLogo = 'assets/image/web_logo.png';
   static const String splash = 'assets/image/splash.png';
+  static const String splash_new = 'assets/image/splash_new.png';
   static const String mobile = 'assets/image/mobile.svg';
   static const String facebook = 'assets/image/facebook.png';
   static const String google = 'assets/image/google.png';
@@ -19,6 +23,7 @@ class Images {
   static const String search = 'assets/image/search.svg';
   static const String add = 'assets/image/add.svg';
   static const String user = 'assets/image/user.svg';
+  static const String trash = 'assets/image/trash.svg';
 
   static const String inbox = 'assets/image/inbox.svg';
   static const String message = 'assets/image/message.svg';

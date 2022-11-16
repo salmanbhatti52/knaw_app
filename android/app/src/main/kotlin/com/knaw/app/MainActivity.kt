@@ -1,4 +1,4 @@
-package com.knawnews.apps
+package com.knaw.app
 
 import io.flutter.embedding.android.FlutterActivity
 
