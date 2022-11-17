@@ -34,6 +34,8 @@ dependencies:
   firebase_auth:
   firebase_core:
   share_plus: 3.0.4
+
+
   image_picker:
   onesignal_flutter:
   flutter_launcher_icons:
@@ -42,7 +44,7 @@ dependencies:
   emoji_picker_flutter:
   geolocator:
   geocoding:
-  google_maps_flutter: ^2.2.1
+  google_maps_flutter:
   google_maps_flutter_web:
   places_service:
   swipe:
