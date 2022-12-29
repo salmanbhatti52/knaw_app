@@ -746,7 +746,7 @@ class _FollowProfileState extends State<FollowProfile>
     response = await DioService.post('block_user', data);
     print(response);
     if (response['status'] == 'success') {
-      showCustomSnackBar("Blocked successfully");
+      //showCustomSnackBar("Blocked successfully");
       Navigator.pop(context);
       Navigator.pop(context);
     } else {

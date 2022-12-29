@@ -155,7 +155,7 @@ class _BlockedMembersState extends State<BlockedMembers> {
     response = await DioService.post('unblock_user', data);
     print(response);
     if (response['status'] == 'success') {
-      showCustomSnackBar("Unblocked successfully");
+      //showCustomSnackBar("Unblocked successfully");
       Navigator.pop(context);
     } else {
       Navigator.pop(context);

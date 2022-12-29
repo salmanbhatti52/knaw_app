@@ -24,14 +24,33 @@ class StatsScreen extends StatefulWidget {
 class _StatsScreenState extends State<StatsScreen> {
   UserDetail userDetail = UserDetail();
   bool isLoading = true;
+  //bool _visible = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       getUserStats();
+      print(AppData().language!.profile);
+      print(userDetail.userName);
+      print(true);
     });
   }
+
+  bool _isvisible(){
+    if( AppData().userdetail?.userName == userDetail.userName ){
+      print(AppData().userdetail?.userName);
+      print(userDetail.userName);
+      print(true);
+      return true;
+    }
+    else
+      {
+        return false;
+      }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,39 +119,46 @@ class _StatsScreenState extends State<StatsScreen> {
                         width: MediaQuery.of(context).size.width * 0.9,
                         height: 1,
                       ),
-                      StatsCard(
-                          icon: Images.mute,
-                          title: AppData().language!.mutedMembers,
-                          data: userDetail.total_mute.toString(),
-                          onTap: () => Get.to(const MutedMember())),
+                      Visibility(
+                        visible: _isvisible(),
+                        child: StatsCard(
+                            icon: Images.mute,
+                            title: AppData().language!.mutedMembers,
+                            data: userDetail.total_mute.toString(),
+                            onTap: () => Get.to(const MutedMember())),
+                      ),
                       Container(
                         color: Theme.of(context).disabledColor.withOpacity(0.5),
                         width: MediaQuery.of(context).size.width * 0.9,
                         height: 1,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(BlockedMembers());
-                        },
-                        child: Container(
-                          child: ListTile(
-                            leading: const Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Icon(
-                                  Icons.block,
-                                  size: 20,
-                                  color: Colors.black87,
-                                )),
-                            title: Text(
-                              'Blocked members',
-                              style: openSansBold.copyWith(
-                                color: textColor,
+                      Visibility(
+
+                        visible: _isvisible(),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(BlockedMembers());
+                          },
+                          child: Container(
+                            child: ListTile(
+                              leading: const Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Icon(
+                                    Icons.block,
+                                    size: 20,
+                                    color: Colors.black87,
+                                  )),
+                              title: Text(
+                                'Blocked members',
+                                style: openSansBold.copyWith(
+                                  color: textColor,
+                                ),
                               ),
-                            ),
-                            trailing: Text(
-                              userDetail.total_block.toString(),
-                              style:
-                                  openSansSemiBold.copyWith(color: textColor),
+                              trailing: Text(
+                                userDetail.total_block.toString(),
+                                style:
+                                    openSansSemiBold.copyWith(color: textColor),
+                              ),
                             ),
                           ),
                         ),
