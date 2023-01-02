@@ -88,12 +88,6 @@
             <string>http</string>
             <string>NSPhotoLibraryUsageDescription</string>
         </array>
-        <key>NSLocationAlwaysUsageDescription</key>
-        <string>This app uses your location to publish news in your area</string>
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>This app uses your location to publish news in your area</string>
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>This app uses your location to publish news in your area</string>
         <key>NSPhotoLibraryUsageDescription</key>
         <string>App needs to access your Photo Library to manage your posts and profile. Your images will not be shared without your permission</string>
         <key>NSAllowsArbitraryLoads</key>

@@ -38,7 +38,8 @@ class UserInfo extends StatelessWidget {
                         shape: BoxShape.circle
                     ),
 
-                    child: ClipOval(
+                    child:
+                    ClipOval(
                       child: postDetail!.postUserProfilePicture == null || postDetail!.postUserProfilePicture == "" ?CustomImage(
                         image: Images.placeholder,
                         height: 35,

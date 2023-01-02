@@ -48,7 +48,6 @@ class _StatsScreenState extends State<StatsScreen> {
       {
         return false;
       }
-
   }
 
 

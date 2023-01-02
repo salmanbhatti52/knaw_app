@@ -662,7 +662,7 @@ class _FollowProfileState extends State<FollowProfile>
     });
     if (response['status'] == 'success') {
       //print(postDetail![0].toJson());
-      Navigator.pop(context);
+      //Navigator.pop(context);
       userDetail.isFollowed = !userDetail.isFollowed;
       setState(() {});
       //showCustomSnackBar(response['data'],isError: false);

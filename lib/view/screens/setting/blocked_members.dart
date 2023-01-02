@@ -23,14 +23,29 @@ class _BlockedMembersState extends State<BlockedMembers> {
 
   int totalMember = 0;
   int? selectedIndex;
+  int offset = 0;
   bool isLoading = true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    scrollController.addListener(_handleScroll);
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       blockedMembersList();
     });
+  }
+  void _handleScroll() {
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent) {
+      print("max scroll");
+      if (totalMember > blockedMemberDetail!.length && !isLoading) {
+        offset += 10;
+        blockedMembersList();
+        isLoading = true;
+      } else {
+        print("Follower not avilable");
+      }
+    } else {}
   }
 
   @override
@@ -97,6 +112,8 @@ class _BlockedMembersState extends State<BlockedMembers> {
                               onTap: () {
                                 unblockUser(
                                     blockedMemberDetail![index].blockedUserId);
+                                setState(() {
+                                });
                               },
                               child: Center(
                                   child: Text(
@@ -123,7 +140,7 @@ class _BlockedMembersState extends State<BlockedMembers> {
         ));
   }
 
-  void blockedMembersList() async {
+  Future<void> blockedMembersList() async {
     openLoadingDialog(context, "Loading");
     var response;
     response = await DioService.post(
@@ -156,11 +173,17 @@ class _BlockedMembersState extends State<BlockedMembers> {
     print(response);
     if (response['status'] == 'success') {
       //showCustomSnackBar("Unblocked successfully");
+      blockedMemberDetail!.removeAt(selectedIndex ?? 0);
+      totalMember -= 1;
       Navigator.pop(context);
+      setState(() {
+      });
     } else {
       Navigator.pop(context);
       print(response['message']);
       showCustomSnackBar(response['message']);
+      setState(() {
+      });
     }
   }
 }
